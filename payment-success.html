@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - LuxeDrive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="booking.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">LuxeDrive</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="booking.html">Book Now</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <div class="success-container">
+        <div class="success-message">
+            <i class="fas fa-check-circle"></i>
+            <h1>Booking Confirmed!</h1>
+            <div id="bookingDetails"></div>
+            <a href="index.html" class="home-btn">Return to Home</a>
+        </div>
+    </div>
+
+    <script>
+    window.onload = async function() {
+        const token = localStorage.getItem('token');
+        const bookingId = localStorage.getItem('currentBookingId');
+        
+        if (!token || !bookingId) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch booking details');
+            }
+
+            const booking = await response.json();
+            
+            // Update the booking details in the page
+            document.getElementById('bookingDetails').innerHTML = `
+                <p>Booking ID: ${booking._id}</p>
+                <p>Car: ${booking.carName}</p>
+                <p>Start Date: ${new Date(booking.pickupDate).toLocaleDateString()}</p>
+                <p>End Date: ${new Date(booking.returnDate).toLocaleDateString()}</p>
+                <p>Total Amount: $${booking.totalAmount}</p>
+            `;
+
+            // Clear the current booking ID from storage
+            localStorage.removeItem('currentBookingId');
+
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to load booking details');
+            window.location.href = 'index.html';
+        }
+    };
+</script>
+</body>
+</html>

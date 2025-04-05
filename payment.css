@@ -1,0 +1,193 @@
+.payment-container {
+    padding: 120px 8% 50px;
+    max-width: 1400px;
+    margin: 0 auto;
+    color: var(--luxury-white);
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.booking-summary,
+.payment-form-section {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 3rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Booking Summary Styles */
+.summary-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--accent-gold);
+    margin-bottom: 2rem;
+}
+
+.car-info {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.car-info img {
+    width: 180px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.rental-details {
+    margin-bottom: 2.5rem;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.cost-breakdown {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+}
+
+.cost-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.cost-item.total {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--accent-gold);
+}
+
+/* Payment Form Styles */
+.payment-methods {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.payment-method {
+    flex: 1;
+    padding: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+    border-color: var(--accent-gold);
+    background: rgba(201, 169, 92, 0.1);
+}
+
+.payment-method input[type="radio"] {
+    margin-right: 1rem;
+    accent-color: var(--accent-gold);
+}
+
+.card-details {
+    margin-bottom: 2.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--luxury-white);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: var(--luxury-white);
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 20px rgba(201, 169, 92, 0.1);
+    outline: none;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.pay-now-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background: transparent;
+    border: 2px solid var(--accent-gold);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--luxury-white);
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.pay-now-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--accent-gold);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.pay-now-btn:hover::before {
+    width: 100%;
+}
+
+.pay-now-btn:hover {
+    color: var(--primary-black);
+}
+
+@media (max-width: 1024px) {
+    .payment-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .booking-summary,
+    .payment-form-section {
+        padding: 2rem;
+    }
+}

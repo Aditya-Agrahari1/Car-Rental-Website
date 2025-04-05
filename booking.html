@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Car - LuxeDrive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="booking.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">LuxeDrive</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="booking.html" class="active">Book Now</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="#" id="authButton">Login</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="booking-container">
+        <h1>Book Your Dream Car</h1>
+        
+        <form class="booking-form" id="bookingForm">
+            <div class="form-section">
+                <h2>Personal Information</h2>
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="license">Driver's License Number</label>
+                    <input type="text" id="license" required>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Rental Details</h2>
+                <div class="form-group">
+                    <label for="car-select">Select Car</label>
+                    <select id="car-select" required>
+                        <option value="">Choose a car</option>
+                        <option value="mercedes">Mercedes-Benz S-Class</option>
+                        <option value="bmw">BMW 7 Series</option>
+                        <option value="audi">Audi A8</option>
+                        <option value="porsche">Porsche Cayenne</option>
+                    </select>
+                </div>
+                <div class="date-group">
+                    <div class="form-group">
+                        <label for="pickup-date">Pickup Date</label>
+                        <input type="date" id="pickup-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="return-date">Return Date</label>
+                        <input type="date" id="return-date" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Additional Services</h2>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="insurance">
+                        Insurance ($30/day)
+                    </label>
+                    <label>
+                        <input type="checkbox" name="gps">
+                        GPS Navigation ($10/day)
+                    </label>
+                    <label>
+                        <input type="checkbox" name="driver">
+                        Professional Driver ($100/day)
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Proceed to Payment</button>
+        </form>
+    </main>
+
+    <script>
+    // Add token verification function
+    async function verifyToken(token) {
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/verify', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/json'
+                }
+            });
+            return response.ok;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    // Update window.onload function
+    window.onload = async function() {
+        const token = localStorage.getItem('token');
+        const carSelect = document.getElementById('car-select');
+        const authButton = document.getElementById('authButton');
+
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        // Set logout button
+        authButton.textContent = 'Logout';
+        authButton.onclick = function(e) {
+            e.preventDefault();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = 'login.html';
+        };
+
+        // Load cars
+        await loadCars();
+    };
+
+    // Load available cars
+    async function loadCars() {
+        try {
+            const token = localStorage.getItem('token');
+            const carSelect = document.getElementById('car-select');
+
+            const response = await fetch('http://localhost:5000/api/cars/available', {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const cars = await response.json();
+            
+            // Clear and populate car select
+            carSelect.innerHTML = '<option value="">Choose a car</option>';
+            cars.forEach(car => {
+                const option = document.createElement('option');
+                option.value = car._id || car.name;
+                option.textContent = `${car.name} ${car.quantity > 0 
+                    ? `(${car.quantity} available) - $${car.price}/day` 
+                    : '(Out of Stock)'}`;
+                option.disabled = car.quantity === 0;
+                carSelect.appendChild(option);
+            });
+
+            // Pre-fill user information if available
+            const user = JSON.parse(localStorage.getItem('user') || '{}');
+            if (user) {
+                document.getElementById('fullname').value = user.name || '';
+                document.getElementById('email').value = user.email || '';
+                document.getElementById('phone').value = user.phone || '';
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            if (error.message.includes('token') || error.message.includes('unauthorized')) {
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+            } else {
+                alert('Failed to load available cars. Please try again later.');
+            }
+        }
+    };
+
+    // Form submission handler
+    document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Please log in to continue');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const selectedCar = document.getElementById('car-select').value;
+        if (!selectedCar) {
+            alert('Please select a car');
+            return;
+        }
+
+        try {
+            // Calculate total days
+            const pickupDate = new Date(document.getElementById('pickup-date').value);
+            const returnDate = new Date(document.getElementById('return-date').value);
+            const totalDays = Math.ceil((returnDate - pickupDate) / (1000 * 60 * 60 * 24));
+
+            // Collect form data
+            const bookingData = {
+                carId: selectedCar,
+                pickupDate: document.getElementById('pickup-date').value,
+                returnDate: document.getElementById('return-date').value,
+                fullName: document.getElementById('fullname').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                license: document.getElementById('license').value,
+                totalDays: totalDays,
+                services: {
+                    insurance: document.querySelector('input[name="insurance"]').checked,
+                    gps: document.querySelector('input[name="gps"]').checked,
+                    driver: document.querySelector('input[name="driver"]').checked
+                }
+            };
+
+            // Submit booking
+            const bookingResponse = await fetch('http://localhost:5000/api/bookings/create', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bookingData)
+            });
+
+            if (!bookingResponse.ok) {
+                const errorData = await bookingResponse.json();
+                throw new Error(errorData.message || 'Failed to create booking');
+            }
+
+            const bookingResult = await bookingResponse.json();
+            window.location.href = `payment.html?booking=${bookingResult._id}`;
+        } catch (error) {
+            console.error('Booking error:', error);
+            alert(error.message || 'Failed to process booking. Please try again.');
+        }
+    });
+</script>
+            <footer>
+                <!-- Same footer as index.html -->
+            </footer>
+        </body>
+        </html>

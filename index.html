@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuxeDrive - Premium Car Rentals</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">LuxeDrive</a>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="booking.html">Book Now</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="login.html" id="authButton">Login</a>
+            <button class="sound-toggle" id="soundToggle">
+                <i class="fas fa-volume-up"></i>
+            </button>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1><span class="accent-text">Exceptional</span> Driving Experience</h1>
+            <p class="hero-subtitle">Where Luxury Meets Performance</p>
+            <p>Experience luxury and comfort with our premium fleet</p>
+            <div class="search-container">
+                <div class="search-bar">
+                    <input type="text" id="carSearch" placeholder="">
+                    <button id="searchButton"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="search-results"></div>
+            </div>
+            <a href="booking.html" class="cta-button">Book Now</a>
+        </div>
+    </header>
+
+    <section class="categories">
+        <h2>Browse by Category</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="images/categories/suv-range-rover.jpg" alt="Luxury SUV Range Rover">
+                <h3>SUV</h3>
+            </div>
+            <div class="category-card">
+                <img src="images/categories/sedan-mercedes.jpg" alt="Luxury Sedan Mercedes">
+                <h3>Sedan</h3>
+            </div>
+            <div class="category-card">
+                <img src="images/categories/sports-porsche.jpg" alt="Sports Car Porsche">
+                <h3>Sports</h3>
+            </div>
+            <div class="category-card">
+                <img src="images/categories/luxury-rolls-royce.jpg" alt="Luxury Car Rolls Royce">
+                <h3>Luxury</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>LuxeDrive</h3>
+                <p>Premium car rental services for your luxury driving experience.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="cars.html">Available Cars</a>
+                <a href="booking.html" class="floating-cta">Book Now</a>
+                <a href="about.html">About Us</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 LuxeDrive. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/search.js"></script>
+    <script src="js/placeholder-animation.js"></script>
+    <script src="js/audio.js"></script>
+    
+    <script>
+        // Add navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Check authentication status and update button
+        function updateAuthButton() {
+            const authButton = document.getElementById('authButton');
+            const token = localStorage.getItem('token');
+            
+            if (token) {
+                authButton.textContent = 'Logout';
+                authButton.href = '#';
+                authButton.onclick = function(e) {
+                    e.preventDefault();
+                    localStorage.removeItem('token');
+                    window.location.href = 'login.html';
+                };
+            } else {
+                authButton.textContent = 'Login';
+                authButton.href = 'login.html';
+                authButton.onclick = null;
+            }
+        }
+
+        // Call the function when page loads
+        window.addEventListener('load', updateAuthButton);
+        
+        // Search functionality
+        const searchInput = document.getElementById('carSearch');
+        const searchButton = document.getElementById('searchButton');
+
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchCars(query).then(displaySearchResults);
+            }
+        }
+
+        searchButton.addEventListener('click', performSearch);
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+        
+        // Button click sound and sparkle effect
+        const clickSound = new Audio('sounds/soft-click.mp3');
+        clickSound.volume = 0.2;
+
+        const buttons = document.querySelectorAll('.cta-button, #authButton, .search-bar button');
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                clickSound.currentTime = 0;
+                clickSound.play();
+            });
+            
+            // Sparkle effect
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${x}px`;
+                sparkle.style.top = `${y}px`;
+                button.appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 1500);
+            });
+        });
+        
+        // Remove duplicate SoundEffects.init() calls
+        // Keep only the event listeners for interactive elements
+        document.querySelectorAll('a, button, .category-card, .social-icons a').forEach(element => {
+            element.addEventListener('click', () => SoundEffects.play('click'));
+            element.addEventListener('mouseenter', () => SoundEffects.play('hover'));
+        });
+
+        // Add success sound for successful actions
+        const authButton = document.getElementById('authButton');
+        if (authButton) {
+            const originalClick = authButton.onclick;
+
+
+            authButton.onclick = function(e) {
+                SoundEffects.play('success');
+                if (originalClick) originalClick.call(this, e);
+            };
+        }
+    </script>
+</body>
+</html>

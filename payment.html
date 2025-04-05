@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - LuxeDrive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="payment.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">LuxeDrive</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="cars.html">Cars</a>
+            <a href="booking.html">Book Now</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="payment-container">
+        <div class="payment-grid">
+            <section class="booking-summary">
+                <h2>Booking Summary</h2>
+                <div class="summary-details">
+                    <div class="car-info">
+                        <img src="images/mercedes.jpg" alt="Mercedes-Benz S-Class">
+                        <div>
+                            <h3>Mercedes-Benz S-Class</h3>
+                            <p>Luxury Sedan</p>
+                        </div>
+                    </div>
+                    <div class="rental-details">
+                        <div class="detail-item">
+                            <span>Pickup Date:</span>
+                            <span id="pickup-date-display">2024-02-10</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Return Date:</span>
+                            <span id="return-date-display">2024-02-15</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Duration:</span>
+                            <span>5 days</span>
+                        </div>
+                    </div>
+                    <div class="cost-breakdown">
+                        <div class="cost-item">
+                            <span>Base Rate (5 days × $200)</span>
+                            <span>$1000</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>Insurance</span>
+                            <span>$150</span>
+                        </div>
+                        <div class="cost-item">
+                            <span>GPS Navigation</span>
+                            <span>$50</span>
+                        </div>
+                        <div class="cost-item total">
+                            <span>Total Amount</span>
+                            <span>$1200</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="payment-form-section">
+                <h2>Payment Details</h2>
+                <form class="payment-form" id="payment-form">
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment-type" value="card" checked>
+                            <span><i class="fas fa-credit-card"></i> Credit/Debit Card</span>
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment-type" value="paypal">
+                            <span><i class="fab fa-paypal"></i> PayPal</span>
+                        </label>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Expiry Date</label>
+                                <input type="text" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Cardholder Name</label>
+                            <input type="text" placeholder="John Doe">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="pay-now-btn">
+                        Pay Now $1200
+                    </button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+    <script>
+        // Add before closing </body> tag
+        async function loadBookingDetails() {
+            const token = localStorage.getItem('token');
+            const bookingId = new URLSearchParams(window.location.search).get('booking');
+            
+            if (!token || !bookingId) {
+                window.location.href = 'booking.html';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                const booking = await response.json();
+                updateSummary(booking);
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load booking details');
+            }
+        }
+
+        function updateSummary(booking) {
+            document.querySelector('.car-info h3').textContent = booking.carName;
+            document.getElementById('pickup-date-display').textContent = new Date(booking.pickupDate).toLocaleDateString();
+            document.getElementById('return-date-display').textContent = new Date(booking.returnDate).toLocaleDateString();
+            // Update other fields as needed
+        }
+
+        document.getElementById('payment-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const token = localStorage.getItem('token');
+                const bookingId = new URLSearchParams(window.location.search).get('booking');
+
+                const paymentData = {
+                    bookingId: bookingId,
+                    paymentMethod: document.querySelector('input[name="payment-type"]:checked').value,
+                    cardNumber: document.querySelector('input[placeholder="1234 5678 9012 3456"]').value,
+                    expiryDate: document.querySelector('input[placeholder="MM/YY"]').value,
+                    cvv: document.querySelector('input[placeholder="123"]').value,
+                    cardholderName: document.querySelector('input[placeholder="John Doe"]').value
+                };
+
+                const response = await fetch('http://localhost:5000/api/payments/process', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                if (response.ok) {
+                    localStorage.setItem('currentBookingId', bookingId);
+                    window.location.href = 'payment-success.html';
+                } else {
+                    throw new Error('Payment failed');
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Payment failed. Please try again.');
+            }
+        });
+
+        // Load booking details when page loads
+        window.onload = loadBookingDetails;
+    </script>
+</body>
+</html>

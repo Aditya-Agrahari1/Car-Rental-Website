@@ -1,0 +1,333 @@
+.booking-container {
+    padding: 120px 8% 50px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.booking-container h1 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--luxury-white);
+}
+
+.booking-form {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 3rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-section {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-section:last-child {
+    border-bottom: none;
+}
+
+.form-section h2 {
+    font-family: var(--font-heading);
+    margin-bottom: 2rem;
+    color: var(--accent-gold);
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+    width: 100%;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: var(--luxury-white);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group input:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 20px rgba(201, 169, 92, 0.1);
+    outline: none;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Style for input autofill */
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--luxury-white);
+    -webkit-box-shadow: 0 0 0px 1000px var(--primary-black) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    color: var(--luxury-white);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 1.1rem;
+    color: var(--luxury-white);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23c9a95c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+}
+
+.form-group select:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 20px rgba(201, 169, 92, 0.1);
+    outline: none;
+}
+
+.form-group select option {
+    background: var(--primary-black);
+    color: var(--luxury-white);
+    padding: 1.2rem;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-group select option:disabled {
+    color: rgba(255, 255, 255, 0.3);
+    font-style: italic;
+}
+
+.form-group select option[value=""] {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.car-option {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+/* Style for low availability warning */
+.form-group select option[data-quantity="1"] {
+    color: #ffd700;
+}
+
+.form-group select option:not(:disabled) {
+    position: relative;
+    padding: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-group select option:not(:disabled):hover {
+    background: rgba(201, 169, 92, 0.1);
+    cursor: pointer;
+}
+
+/* Style for availability count */
+.form-group select option:not(:disabled)::after {
+    content: attr(data-availability);
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.car-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.car-option:hover {
+    background: rgba(201, 169, 92, 0.1);
+}
+
+.car-option .price {
+    color: var(--accent-gold);
+    font-weight: 500;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 20px rgba(201, 169, 92, 0.1);
+    outline: none;
+}
+
+.date-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    color: var(--luxury-white);
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.checkbox-group label:hover {
+    color: var(--accent-gold);
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--accent-gold);
+}
+
+.submit-btn {
+    display: block;
+    width: 100%;
+    padding: 1.2rem;
+    background: transparent;
+    border: 2px solid var(--accent-gold);
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--luxury-white);
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--accent-gold);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.submit-btn:hover::before {
+    width: 100%;
+}
+
+.submit-btn:hover {
+    color: var(--primary-black);
+}
+
+/* Success Message Styles */
+.success-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+    background: var(--primary-black);
+}
+
+.success-message {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 3rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: var(--luxury-white);
+}
+
+.success-message i {
+    color: var(--accent-gold);
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.success-message h1 {
+    font-family: var(--font-heading);
+    margin-bottom: 1.5rem;
+}
+
+#bookingDetails {
+    margin: 2rem 0;
+    text-align: left;
+}
+
+#bookingDetails p {
+    margin: 0.8rem 0;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.home-btn {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    border: 2px solid var(--accent-gold);
+    color: var(--luxury-white);
+    text-decoration: none;
+    border-radius: 50px;
+    margin-top: 2rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.home-btn:hover {
+    background: var(--accent-gold);
+    color: var(--primary-black);
+}
+
+@media (max-width: 768px) {
+    .booking-container {
+        padding: 100px 5% 50px;
+    }
+
+    .booking-container h1 {
+        font-size: 2.5rem;
+    }
+
+    .booking-form {
+        padding: 2rem;
+    }
+
+    .date-group {
+        grid-template-columns: 1fr;
+    }
+
+    .form-section h2 {
+        font-size: 1.8rem;
+    }
+}

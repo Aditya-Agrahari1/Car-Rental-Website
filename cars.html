@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Cars - LuxeDrive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="cars.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">LuxeDrive</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="cars.html" class="active">Cars</a>
+            <a href="booking.html">Book Now</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <main class="cars-container">
+        <div class="page-header">
+            <h1>Luxury Fleet</h1>
+            <p>Choose from our exclusive collection of premium vehicles</p>
+        </div>
+        <aside class="filters">
+            <h2>Filters</h2>
+            <div class="filter-group">
+                <h3>Car Type</h3>
+                <label><input type="checkbox" value="suv"> SUV</label>
+                <label><input type="checkbox" value="sedan"> Sedan</label>
+                <label><input type="checkbox" value="sports"> Sports</label>
+                <label><input type="checkbox" value="luxury"> Luxury</label>
+            </div>
+            <div class="filter-group">
+                <h3>Price Range</h3>
+                <input type="range" min="0" max="1000" step="50" class="price-slider">
+                <div class="price-range">$0 - $1000</div>
+            </div>
+            <button class="apply-filters">Apply Filters</button>
+        </aside>
+
+        <section class="car-grid">
+            <!-- Car Cards -->
+            <div class="car-card">
+                <img src="images/mercedes-s.jpg" alt="Mercedes-Benz S-Class">
+                <div class="car-details">
+                    <h3>Mercedes-Benz S-Class</h3>
+                    <p class="price">$200/day</p>
+                    <div class="features">
+                        <span><i class="fas fa-users"></i> 5 Seats</span>
+                        <span><i class="fas fa-cog"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                        <span class="stock"><i class="fas fa-car"></i> 3 Available</span>
+                    </div>
+                    <a href="booking.html?car=mercedes-s" class="book-now">Book Now</a>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <img src="images/bmw-7.jpg" alt="BMW 7 Series">
+                <div class="car-details">
+                    <h3>BMW 7 Series</h3>
+                    <p class="price">$180/day</p>
+                    <div class="features">
+                        <span><i class="fas fa-users"></i> 5 Seats</span>
+                        <span><i class="fas fa-cog"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Hybrid</span>
+                        <span class="stock"><i class="fas fa-car"></i> 2 Available</span>
+                    </div>
+                    <a href="booking.html?car=bmw-7" class="book-now">Book Now</a>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <img src="images/audi-q8.jpg" alt="Audi Q8">
+                <div class="car-details">
+                    <h3>Audi Q8</h3>
+                    <p class="price">$170/day</p>
+                    <div class="features">
+                        <span><i class="fas fa-users"></i> 7 Seats</span>
+                        <span><i class="fas fa-cog"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                        <span class="stock"><i class="fas fa-car"></i> 4 Available</span>
+                    </div>
+                    <a href="booking.html?car=audi-q8" class="book-now">Book Now</a>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <img src="images/porsche-911.jpg" alt="Porsche 911">
+                <div class="car-details">
+                    <h3>Porsche 911</h3>
+                    <p class="price">$250/day</p>
+                    <div class="features">
+                        <span><i class="fas fa-users"></i> 2 Seats</span>
+                        <span><i class="fas fa-cog"></i> Manual</span>
+                        <span><i class="fas fa-gas-pump"></i> Petrol</span>
+                        <span class="stock"><i class="fas fa-car"></i> 1 Available</span>
+                    </div>
+                    <a href="booking.html?car=porsche-911" class="book-now">Book Now</a>
+                </div>
+            </div>
+
+            <div class="car-card">
+                <img src="images/range-rover.jpg" alt="Range Rover Sport">
+                <div class="car-details">
+                    <h3>Range Rover Sport</h3>
+                    <p class="price">$190/day</p>
+                    <div class="features">
+                        <span><i class="fas fa-users"></i> 7 Seats</span>
+                        <span><i class="fas fa-cog"></i> Automatic</span>
+                        <span><i class="fas fa-gas-pump"></i> Diesel</span>
+                        <span class="stock"><i class="fas fa-car"></i> 0 Available</span>
+                    </div>
+                    <button class="book-now sold-out" disabled>Sold Out</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Same footer as index.html -->
+    <footer>...</footer>
+</body>
+</html>
+
+<script>
+    async function loadCars() {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch('http://localhost:5000/api/cars/available', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (response.status === 401) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch cars');
+            }
+
+            const cars = await response.json();
+            const carGrid = document.querySelector('.car-grid');
+            carGrid.innerHTML = '';
+
+            const carImages = {
+                'Mercedes-Benz S-Class': 'mercedes-s.jpg',
+                'BMW 7 Series': 'bmw-7.jpg',
+                'Audi A8': 'audi-a8.jpg',      // Changed from 'Audi a8'
+                'Porsche Cayenne': 'porsche-cayenne.jpg',  // Changed from 'Porsche 911'
+                'Range Rover Sport': 'range-rover.jpg'
+                // Add more mappings as needed
+            };
+
+            cars.forEach(car => {
+                const carData = {
+                    name: car.name || 'Unknown Car',
+                    price: car.price || 0,
+                    seats: car.seats || 4,
+                    transmission: car.transmission || 'Automatic',
+                    fuel: car.fuel || 'Petrol',
+                    quantity: car.quantity || 0,
+                    image: carImages[car.name] || 'default-car.jpg',
+                    _id: car._id
+                };
+
+                const carCard = document.createElement('div');
+                carCard.className = 'car-card';
+                carCard.innerHTML = `
+                    <img src="images/${carData.image}" alt="${carData.name}" 
+                         onerror="this.src='images/default-car.jpg'"
+                         loading="lazy">
+                    <div class="car-details">
+                        <h3>${carData.name}</h3>
+                        <p class="price">$${carData.price}/day</p>
+                        <div class="features">
+                            <span><i class="fas fa-users"></i> ${carData.seats} Seats</span>
+                            <span><i class="fas fa-cog"></i> ${carData.transmission}</span>
+                            <span><i class="fas fa-gas-pump"></i> ${carData.fuel}</span>
+                            <span class="stock"><i class="fas fa-car"></i> ${carData.quantity} Available</span>
+                        </div>
+                        ${carData.quantity > 0 
+                            ? `<a href="booking.html?car=${carData._id}" class="book-now">Book Now</a>`
+                            : `<button class="book-now sold-out" disabled>Sold Out</button>`
+                        }
+                    </div>
+                `;
+                carGrid.appendChild(carCard);
+            });
+        } catch (error) {
+            console.error('Error loading cars:', error);
+            const carGrid = document.querySelector('.car-grid');
+            carGrid.innerHTML = '<p class="error-message">Failed to load cars. Please try again later.</p>';
+        }
+    }
+
+    // Check authentication on page load
+    // Remove the separate loadCars() call and adjust the window.onload function
+    window.onload = function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'login.html';
+            return;
+        }
+        loadCars();
+    
+        // Increase the interval to reduce jiggling
+        setInterval(loadCars, 60000); // Changed from 30000 to 60000 (1 minute)
+    };
+    
+    // Remove the standalone loadCars() call that was here before
+    
+    // Modify the storage event listener to debounce updates
+    let updateTimeout;
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'carsUpdated') {
+            clearTimeout(updateTimeout);
+            updateTimeout = setTimeout(loadCars, 1000);
+        }
+    });</script>

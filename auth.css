@@ -1,0 +1,125 @@
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, var(--primary-black), var(--secondary-black));
+    padding: 20px;
+}
+
+.auth-box {
+    background: rgba(26, 26, 26, 0.95);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--accent-gold);
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+}
+
+.auth-box h2 {
+    font-family: var(--font-heading);
+    color: var(--luxury-white);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.4em;
+    font-weight: 600;
+    letter-spacing: 4px;
+    position: relative;
+}
+
+.auth-box h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: var(--accent-gold);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(201, 169, 92, 0.3);
+    border-radius: 8px;
+    font-size: 16px;
+    color: var(--luxury-white);
+    transition: all 0.3s ease;
+    font-family: var(--font-body);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 15px rgba(201, 169, 92, 0.2);
+    outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.auth-button {
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    color: var(--accent-gold);
+    border: 2px solid var(--accent-gold);
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--accent-gold);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.auth-button:hover::before {
+    width: 100%;
+}
+
+.auth-button:hover {
+    color: var(--primary-black);
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 25px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: var(--font-body);
+}
+
+.auth-link a {
+    color: var(--accent-gold);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-link a:hover {
+    color: var(--luxury-white);
+}
