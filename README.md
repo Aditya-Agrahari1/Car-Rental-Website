@@ -66,10 +66,8 @@ JWT_SECRET=your_jwt_secret_key
 PORT=5000
 ADMIN_REGISTRATION_KEY=132456789
 EMAIL_USER=your_email@example.com
-EMAIL_PASS=your_email_password # Use an app-specific password if using Gmail
+EMAIL_PASS=your_email_password  # Use an app password, not your main email password
 ```
-
-> 🛡️ **Note:** Never commit your `.env` file to version control.
 
 ---
 
