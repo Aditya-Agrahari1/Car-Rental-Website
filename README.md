@@ -13,7 +13,7 @@ A modern web application offering a seamless and premium car rental experience f
 - [Technology Stack](https://github.com/Aditya-Agrahari1/Car-Rental-Website/blob/main/README.md#-technology-stack)
 - [Getting Started](https://github.com/Aditya-Agrahari1/Car-Rental-Website/blob/main/README.md#-getting-started)
 - [Usage](https://github.com/Aditya-Agrahari1/Car-Rental-Website/blob/main/README.md#-usage)
-- [Admin Registration](https://github.com/Aditya-Agrahari1/Car-Rental-Website/blob/main/README.md#-admin-registration)
+- [Admin Registration](https://github.com/Aditya-Agrahari1/Car-Rental-Website/blob/main/README.md#%EF%B8%8F-admin-registration)
 - [Contributing](https://github.com/Aditya-Agrahari1/Car-Rental-Website/blob/main/README.md#-contributing)
 - [License](https://github.com/Aditya-Agrahari1/Car-Rental-Website/blob/main/README.md#-license)
 
