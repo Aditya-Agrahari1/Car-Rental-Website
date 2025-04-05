@@ -98,7 +98,7 @@ EMAIL_PASS=your_email_password  # Use an app password, not your main email passw
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone [<repository-url>](https://github.com/Aditya-Agrahari1/Car-Rental-Website.git)
 
 # Navigate to project directory
 cd luxedrive
