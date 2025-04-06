@@ -32,7 +32,7 @@ mongoose.connection.on('disconnected', () => {
     console.log('MongoDB disconnected');
 });
 
-// Remove duplicate route declarations
+
 const authRoutes = require('./routes/auth.routes');
 const carRoutes = require('./routes/car.routes');
 const bookingRoutes = require('./routes/booking.routes');
@@ -40,13 +40,12 @@ const contactRoutes = require('./routes/contact.routes');
 app.use('/api/contact', contactRoutes);
 const paymentRoutes = require('./routes/payment.routes');
 
-// Add this with your other route uses
-app.use('/api/payments', paymentRoutes);
 
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/payments', paymentRoutes);
 
 // API error handler
 app.use('/api/*', (err, req, res, next) => {
@@ -72,3 +71,6 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+// Don't Forget to Star the Repo ⭐ [https://github.com/Aditya-Agrahari1/Car-Rental-Website]
+// #Support OpenSource
