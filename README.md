@@ -101,7 +101,7 @@ EMAIL_PASS=your_email_password  # Use an app password, not your main email passw
 git clone https://github.com/Aditya-Agrahari1/Car-Rental-Website.git
 
 # Navigate to project directory
-cd luxedrive
+cd Car-Rental-Website
 
 # Install dependencies
 npm install
