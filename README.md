@@ -166,4 +166,5 @@ This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-> 💬 For inquiries or suggestions, feel free to reach out!
+> 💬 For inquiries or suggestions, feel free to reach out via [email](mailto:agrahariaditya005@gmail.com) or message me on [Telegram](https://t.me/xKiteretsu)!
+
