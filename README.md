@@ -1,6 +1,6 @@
 # LuxeDrive - Premium Car Rental Service
 
-![LuxeDrive Preview](./screenshots/hero.png) <!-- Replace with actual screenshot path -->
+![LuxeDrive Preview](./images/HomePage.png) <!-- Replace with actual screenshot path -->
 
 A modern web application offering a seamless and premium car rental experience for customers looking for luxury vehicles.
 
