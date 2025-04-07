@@ -6,6 +6,7 @@
     --accent-gold: #c9a95c;
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Inter', sans-serif;
+    --max-width-content: 1400px;  
 }
 
 /* Global Styles */
@@ -14,6 +15,81 @@ body {
     background-color: var(--primary-black);
     color: var(--luxury-white);
     line-height: 1.6;
+    font-size: 14px; /* Base font size reduced */
+    max-width: 1920px;
+    margin: 0 auto;
+}
+
+/* Header adjustments */
+.navbar {
+    padding: 1rem 5%;
+}
+
+.logo {
+    font-size: 1.8rem; /* Reduced from 2.2rem */
+}
+
+.nav-links a {
+    font-size: 0.9rem; /* Reduced from 1rem */
+    gap: 2rem; /* Reduced from 3rem */
+}
+
+/* Hero Section adjustments */
+.hero-content {
+    padding-top: 15vh; /* Reduced from 20vh */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem; /* Reduced from 4.5rem */
+}
+
+.hero-subtitle {
+    font-size: 1rem; /* Reduced from 1.2rem */
+    margin-bottom: 2rem; /* Reduced from 3rem */
+}
+
+/* Search Bar adjustments */
+.search-bar {
+    max-width: 500px; /* Reduced from 600px */
+    margin: 15px auto; /* Reduced from 20px */
+}
+
+.search-bar input {
+    font-size: 1rem; /* Reduced from 1.2rem */
+    padding: 12px 16px; /* Reduced padding */
+}
+
+.search-bar button {
+    width: 38px; /* Reduced from 45px */
+    height: 38px;
+}
+
+/* Category Section adjustments */
+.categories {
+    padding: 4rem 5%; /* Reduced from 6rem 8% */
+}
+
+.categories h2 {
+    font-size: 2.5rem; /* Reduced from 3rem */
+}
+
+.category-card {
+    height: 300px; /* Reduced from 350px */
+}
+
+/* Media Queries */
+@media (min-width: 1920px) {
+    body {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
 }
 
 /* Header and Navigation Styles */
