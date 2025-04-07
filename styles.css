@@ -6,89 +6,79 @@
     --accent-gold: #c9a95c;
     --font-heading: 'Cormorant Garamond', serif;
     --font-body: 'Inter', sans-serif;
-    --max-width-content: 1400px;  
+    --max-width-content: 100%;  /* Changed from fixed pixels */
 }
 
 /* Global Styles */
 body {
-    font-family: var(--font-body);
-    background-color: var(--primary-black);
-    color: var(--luxury-white);
-    line-height: 1.6;
-    font-size: 14px; /* Base font size reduced */
-    max-width: 1920px;
+    font-size: 100%;
+    max-width: 100%;
     margin: 0 auto;
+    padding: 0;
 }
 
 /* Header adjustments */
 .navbar {
-    padding: 1rem 5%;
+    padding: 1% 5%;
 }
 
 .logo {
-    font-size: 1.8rem; /* Reduced from 2.2rem */
+    font-size: 200%;
+}
+
+.nav-links {
+    gap: 3%;
 }
 
 .nav-links a {
-    font-size: 0.9rem; /* Reduced from 1rem */
-    gap: 2rem; /* Reduced from 3rem */
+    font-size: 100%;
+    padding: 1% 0;
 }
 
-/* Hero Section adjustments */
+/* Hero Section */
 .hero-content {
-    padding-top: 15vh; /* Reduced from 20vh */
-    max-width: 1200px;
-    margin: 0 auto;
+    padding-top: 12%;
+    max-width: 70%;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem; /* Reduced from 4.5rem */
+    font-size: 350%;
 }
 
 .hero-subtitle {
-    font-size: 1rem; /* Reduced from 1.2rem */
-    margin-bottom: 2rem; /* Reduced from 3rem */
+    font-size: 110%;
+    margin-bottom: 3%;
 }
 
-/* Search Bar adjustments */
+/* Search Bar */
 .search-bar {
-    max-width: 500px; /* Reduced from 600px */
-    margin: 15px auto; /* Reduced from 20px */
+    max-width: 40%;
+    margin: 1.5% auto;
 }
 
 .search-bar input {
-    font-size: 1rem; /* Reduced from 1.2rem */
-    padding: 12px 16px; /* Reduced padding */
+    font-size: 100%;
+    padding: 1.5% 2%;
 }
 
 .search-bar button {
-    width: 38px; /* Reduced from 45px */
-    height: 38px;
+    width: 6%;
+    aspect-ratio: 1;
 }
 
-/* Category Section adjustments */
-.categories {
-    padding: 4rem 5%; /* Reduced from 6rem 8% */
-}
-
-.categories h2 {
-    font-size: 2.5rem; /* Reduced from 3rem */
-}
-
+/* Category Cards */
 .category-card {
-    height: 300px; /* Reduced from 350px */
+    height: 35vh;
+}
+
+.category-card h3 {
+    font-size: 150%;
 }
 
 /* Media Queries */
-@media (min-width: 1920px) {
-    body {
-        font-size: 16px;
-    }
-}
-
 @media (max-width: 768px) {
     body {
-        font-size: 14px;
+        font-size: 90%;
     }
 }
 
