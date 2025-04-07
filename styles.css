@@ -11,74 +11,94 @@
 
 /* Global Styles */
 body {
-    font-size: 100%;
-    max-width: 100%;
+    font-size: 125%; /* Increased from fixed pixels */
+    max-width: 90%;
     margin: 0 auto;
-    padding: 0;
 }
 
 /* Header adjustments */
 .navbar {
-    padding: 1% 5%;
+    padding: 1.5% 4%;
 }
 
 .logo {
-    font-size: 200%;
+    font-size: 150%;
 }
 
 .nav-links {
-    gap: 3%;
+    gap: 4%;
 }
 
 .nav-links a {
-    font-size: 100%;
-    padding: 1% 0;
+    font-size: 110%;
+    padding: 2% 0;
 }
 
 /* Hero Section */
 .hero-content {
-    padding-top: 12%;
-    max-width: 70%;
+    padding-top: 15%;
+    max-width: 80%;
+    margin: 0 auto;
 }
 
 .hero-content h1 {
-    font-size: 350%;
+    font-size: 300%;
 }
 
 .hero-subtitle {
-    font-size: 110%;
-    margin-bottom: 3%;
+    font-size: 120%;
+    margin-bottom: 4%;
 }
 
 /* Search Bar */
 .search-bar {
-    max-width: 40%;
-    margin: 1.5% auto;
+    max-width: 50%;
+    margin: 2% auto;
+    padding: 0.5%;
 }
 
 .search-bar input {
-    font-size: 100%;
-    padding: 1.5% 2%;
+    font-size: 120%;
+    padding: 2% 3%;
 }
 
 .search-bar button {
-    width: 6%;
+    width: 8%;
+    height: auto;
     aspect-ratio: 1;
 }
 
 /* Category Cards */
 .category-card {
-    height: 35vh;
+    height: 40vh;
 }
 
 .category-card h3 {
-    font-size: 150%;
+    font-size: 180%;
+}
+
+.categories {
+    padding: 4rem 5%; /* Reduced from 6rem 8% */
+}
+
+.categories h2 {
+    font-size: 2.5rem; /* Reduced from 3rem */
+}
+
+.category-card {
+    height: 300px; /* Reduced from 350px */
 }
 
 /* Media Queries */
+@media (min-width: 1920px) {
+    body {
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 768px) {
     body {
-        font-size: 90%;
+        font-size: 14px;
     }
 }
 
